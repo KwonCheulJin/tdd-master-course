@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function Footer({ className }: Props) {
-  return <div className={clsx(className)}></div>;
+  return <div className={clsx('bg-neutral-950 mt-auto h-32', className)}></div>;
 }

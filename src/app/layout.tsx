@@ -1,4 +1,6 @@
 import DevNav from '@/app/components/__dev__/dev-nav';
+import Footer from '@/app/components/organisms/footer';
+import Header from '@/app/components/organisms/header';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -29,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
+        <Footer />
         <DevNav />
       </body>
     </html>

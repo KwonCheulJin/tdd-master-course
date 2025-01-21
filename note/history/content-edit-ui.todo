@@ -1,0 +1,13 @@
+Task:
+  ☐ 전체
+  ☐ 요구사항 분석(문제 상황, 목표 등)
+    컨텐츠 생성 페이지
+      title, body, thumbnail
+  ☐ 개발 전략(테스트 시나리오, 우선순위 - 후순위로 미룰게 있나?, 작업 목록 작성)
+    content-create-ui 복붙
+  ☐ 작업 목록: @must @could @should @won't
+    ✔ content-post page @done(25-01-21 16:36)
+      ✔ input-image @done(25-01-21 16:36)
+  ☐ 회고
+
+  ☐ 추가

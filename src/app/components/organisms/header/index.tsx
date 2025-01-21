@@ -1,4 +1,4 @@
-import { layoutStyles } from '@/src/styles/layout-styles';
+import { layoutStyles } from '@/styles/layout-styles';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';

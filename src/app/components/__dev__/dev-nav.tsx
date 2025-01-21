@@ -10,6 +10,18 @@ const links: Array<LinkItem> = [
     tag: '컨텐츠 상세페이지',
     href: '/contents/1cd620e6-58df-4856-b196-02f3e0b7b89f',
   },
+  {
+    tag: '컨텐츠 리스트 페이지',
+    href: '/contents',
+  },
+  {
+    tag: '컨텐츠 생성 페이지',
+    href: '/contents/post',
+  },
+  {
+    tag: '컨텐츠 수정 페이지',
+    href: '/contents/1cd620e6-58df-4856-b196-02f3e0b7b89f/edit',
+  },
 ];
 
 export default function DevNav() {
