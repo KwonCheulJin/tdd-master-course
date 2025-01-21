@@ -1,5 +1,4 @@
-import DevNav from '@/src/app/components/__dev__/dev-nav';
-import Header from '@/src/app/components/header';
+import DevNav from '@/app/components/__dev__/dev-nav';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -30,7 +29,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
         {children}
         <DevNav />
       </body>

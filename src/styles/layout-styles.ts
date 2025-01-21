@@ -1,4 +1,4 @@
 export const layoutStyles = {
-  px: 'px-8',
-  mx: 'mx-8',
+  px: 'px-6',
+  mx: 'mx-6',
 };
