@@ -7,6 +7,6 @@ export const contentFixture: Array<Content> = [
     title: 'Jane Eyre',
     body: 'hastily table aboard alongside essential meatloaf joint bah warp miserably redraw hoarse shyly definitive wise derby worth yet mmm sleepily when unbearably partridge yahoo sneak',
     thumbnail: '/next.svg',
-    authorId: '102e3cc8-7f76-446b-86c8-643b4906bb6f',
+    authorId: '33913a14-bc2d-42e4-bcee-f5b77cc6b6e2',
   },
 ];

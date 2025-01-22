@@ -1,5 +1,5 @@
 import { gen } from '__tests__/generator';
-import { objectToString } from '__tests__/lib/object-to-string';
+import { objectToString } from '__tests__/libs/object-to-string';
 import { list } from 'radashi';
 
 const main = (len: number) => {

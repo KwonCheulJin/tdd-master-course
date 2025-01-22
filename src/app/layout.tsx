@@ -1,8 +1,7 @@
 import DevNav from '@/app/components/__dev__/dev-nav';
-import Footer from '@/app/components/organisms/footer';
-import Header from '@/app/components/organisms/header';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+
 import './globals.css';
 import './mock-service';
 
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
   description: '프론트엔드 TDD 완전정복 시리즈',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -31,9 +30,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
         {children}
-        <Footer />
+
         <DevNav />
       </body>
     </html>

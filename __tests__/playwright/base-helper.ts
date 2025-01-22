@@ -1,0 +1,23 @@
+import { BrowserContext, type Page } from '@playwright/test';
+
+export class BaseHelper {
+  readonly page: Page;
+  readonly context: BrowserContext;
+  readonly baseUrl: string;
+
+  constructor(page: Page, context: BrowserContext) {
+    this.page = page;
+    this.context = context;
+    this.baseUrl = process.env.NEXT_PUBLIC_WEB_BASE_URL;
+  }
+
+  async signin(authorization: string) {
+    await this.context.addCookies([
+      {
+        name: 'authorization',
+        value: authorization,
+        url: this.baseUrl,
+      },
+    ]);
+  }
+}

@@ -11,12 +11,21 @@ import {
 
 interface Props {
   className?: string;
+  user?: {
+    nickname: string;
+  };
+  contentAuthorNickname?: string;
 }
 
-export default function Header({ className }: Props) {
+export default function Header({
+  className,
+  user,
+  contentAuthorNickname,
+}: Props) {
   return (
     <div
       className={clsx('flex justify-between h-14', layoutStyles.px, className)}
+      data-testid={'header'}
     >
       <div className="flex items-center">
         <Link href="/">
@@ -28,12 +37,14 @@ export default function Header({ className }: Props) {
             className="mr-4"
           />
         </Link>
-        <Link href="/users/e69617ab-2700-463f-8d9a-3a09299d39db">
-          <span>
-            <span>{'charles'}</span>
-            <span>님 블로그</span>
-          </span>
-        </Link>
+        {contentAuthorNickname && (
+          <Link href="/users/e69617ab-2700-463f-8d9a-3a09299d39db">
+            <span>
+              <span>{contentAuthorNickname}</span>
+              <span>님 블로그</span>
+            </span>
+          </Link>
+        )}
       </div>
       <div className="flex items-center">
         <Link href="notification" className="p-3 block">
@@ -48,8 +59,8 @@ export default function Header({ className }: Props) {
         >
           새 글 작성
         </Link>
-        {false ? (
-          <button className="flex items-center">
+        {user !== undefined ? (
+          <button className="flex items-center" aria-label="user-menu">
             <HiOutlineUser className="text-2xl" />
             <HiChevronDown />
           </button>

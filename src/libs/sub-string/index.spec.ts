@@ -1,4 +1,4 @@
-import { localizeDate } from '@/libs/sub-string';
+import { localizeDate } from '@/src/libs/sub-string';
 import { expect, test } from 'vitest';
 
 test('localizeDate', () => {
