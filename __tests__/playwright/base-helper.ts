@@ -1,4 +1,4 @@
-import { BrowserContext, type Page } from '@playwright/test';
+import { BrowserContext, expect, type Page } from '@playwright/test';
 
 export class BaseHelper {
   readonly page: Page;
@@ -19,5 +19,10 @@ export class BaseHelper {
         url: this.baseUrl,
       },
     ]);
+  }
+
+  async strictHaveUrl(relative: string) {
+    const absolute = this.baseUrl + relative;
+    await expect(this.page).toHaveURL(absolute);
   }
 }

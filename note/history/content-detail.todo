@@ -1,26 +1,32 @@
 Task:
   ☐ 전체
   ☐ 요구사항 분석(문제 상황, 목표 등)
+    로그인 유무 -> 헤더가 바뀜
+    게시글 작성자도 헤더에 들어감
     main
-      title, author.nickname, createdAt, body, isAuthor
-      localizeDate();
+      title, author.nickname, createAt, body
     author-aside
-      id, nickname, imgUrl
-
+      author.imgUrl, author.nickname
     comment-section
       isAuthorized
-
-    footer
-
   ☐ 개발 전략(테스트 시나리오, 우선순위 - 후순위로 미룰게 있나?, 작업 목록 작성)
-
+    순수/비순수함수는 가장 작은 단위로 만들어서 따로 테스트
+    전체 페이지이는 "정상"의 경우까지 예외들을 하나씩 처리해줌.
   ☐ 작업 목록: @must @could @should @won't
-    ✔ main @done(25-01-21 15:38)
-      ✔ isAuthor -> true/false @done(25-01-21 15:38)
-      ✔ localizeData() @done(25-01-21 15:38)
-    ✔ author-aside @done(25-01-21 15:50)
-    ✔ comment-section @done(25-01-21 15:50)
+    ✔ guard @done(25-01-23 09:54)
+      ✔ 컨텐츠가 존재하지 않는 경우 -> /contents로 redirect @done(25-01-23 09:54)
 
+    ✔ header @done(25-01-23 09:35)
+      ✔ 로그인X -> 로그인 버튼이 보여야 한다. @done(25-01-23 09:35)
+      ✔ 로그인O -> 사용자 메뉴가 보임 @done(25-01-23 09:35)
+      ✔ {게시판 작성자}님 블로그 보임 @done(25-01-23 09:35)
+    ✔ main @done(25-01-23 10:03)
+      ✔ title, author.nickname, createAt, body @done(25-01-23 10:03)
+    ✔ author-aside @done(25-01-23 10:19)
+      ✔ author.imgUrl, author.nickname @done(25-01-23 10:19)
+    ✔ comment-section @done(25-01-23 10:44)
+      ✔ 로그인 X -> textarea 클릭 시 /users/sigh-in으로 리다이렉트 @done(25-01-23 10:44)
+      ✔ 로그인 O -> 리다이렉트 안됨 @done(25-01-23 10:44)
   ☐ 회고
 
   ☐ 추가

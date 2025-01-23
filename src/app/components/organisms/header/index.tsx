@@ -28,7 +28,7 @@ export default function Header({
       data-testid={'header'}
     >
       <div className="flex items-center">
-        <Link href="/">
+        <Link href="/" aria-label="home">
           <Image
             width={16}
             height={16}
@@ -38,7 +38,10 @@ export default function Header({
           />
         </Link>
         {contentAuthorNickname && (
-          <Link href="/users/e69617ab-2700-463f-8d9a-3a09299d39db">
+          <Link
+            href="/users/e69617ab-2700-463f-8d9a-3a09299d39db"
+            aria-label={`${contentAuthorNickname} - home`}
+          >
             <span>
               <span>{contentAuthorNickname}</span>
               <span>님 블로그</span>
@@ -47,10 +50,14 @@ export default function Header({
         )}
       </div>
       <div className="flex items-center">
-        <Link href="notification" className="p-3 block">
+        <Link
+          href="notification"
+          className="p-3 block"
+          aria-label="notification"
+        >
           <HiOutlineBell className="text-2xl" />
         </Link>
-        <Link href="search" className="p-3 block">
+        <Link href="search" className="p-3 block" aria-label="search">
           <HiSearch className="text-2xl" />
         </Link>
         <Link

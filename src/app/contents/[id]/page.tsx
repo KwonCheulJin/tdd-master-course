@@ -17,15 +17,17 @@ export default async function ContentsDetail({
   const { id } = await params;
   const response = await contentApi.findOne(id);
   if (response.status !== 200) redirect('/contents');
+  const data = response.data;
+
   return (
     <>
       <Header
-        contentAuthorNickname={response.data.content.author.nickname}
+        contentAuthorNickname={data.content.author.nickname}
         user={user}
       />
-      <ContentDetailMain />
-      <ContentDetailAuthorAside />
-      <ContentDetailCommentSection />
+      <ContentDetailMain content={data.content} />
+      <ContentDetailAuthorAside author={data.content.author} />
+      <ContentDetailCommentSection isAuthorized={!!user} />
       <Footer />
     </>
   );

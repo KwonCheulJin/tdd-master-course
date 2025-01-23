@@ -36,6 +36,7 @@ export const contentsHandler = [
         ...omit(found, ['authorId']),
         author,
       };
+
       return HttpResponse.json({
         data: { content },
         status: 200,

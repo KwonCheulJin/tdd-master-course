@@ -1,3 +1,4 @@
+import { contentFixture } from '__tests__/fixture/content';
 import Link from 'next/link';
 
 interface LinkItem {
@@ -8,7 +9,7 @@ interface LinkItem {
 const links: Array<LinkItem> = [
   {
     tag: '컨텐츠 상세페이지',
-    href: '/contents/0cfae10f-1e14-49d8-be1f-2d9785a90630',
+    href: `/contents/${contentFixture[0].id}`,
   },
   {
     tag: '컨텐츠 상세페이지 void',
@@ -24,7 +25,7 @@ const links: Array<LinkItem> = [
   },
   {
     tag: '컨텐츠 수정 페이지',
-    href: '/contents/0cfae10f-1e14-49d8-be1f-2d9785a90630/edit',
+    href: `/contents/${contentFixture[0].id}/edit`,
   },
   {
     tag: '컨텐츠 수정 페이지 void',
