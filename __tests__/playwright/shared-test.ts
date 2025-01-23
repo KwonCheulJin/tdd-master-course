@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { userFixture } from '__tests__/fixture/user';
+import { userFixtures } from '__tests__/fixture/user';
 import { BaseHelper } from '__tests__/playwright/base-helper';
 
 export const headerTest = (url: string) => {
@@ -11,7 +11,7 @@ export const headerTest = (url: string) => {
   });
   test('로그인 된 사용자는 유저 메뉴가 보인다.', async ({ page, context }) => {
     const helper = new BaseHelper(page, context);
-    const user = userFixture[0];
+    const user = userFixtures[0];
 
     await helper.signin(user.nickname);
     await page.goto(url);

@@ -14,10 +14,10 @@ interface Props {
   user?: {
     nickname: string;
   };
-  contentAuthorNickname?: string;
+  contentAuthorNickname: string;
 }
 
-export default function Header({
+export default function ContentDetailHeader({
   className,
   user,
   contentAuthorNickname,
@@ -37,17 +37,15 @@ export default function Header({
             className="mr-4"
           />
         </Link>
-        {contentAuthorNickname && (
-          <Link
-            href="/users/e69617ab-2700-463f-8d9a-3a09299d39db"
-            aria-label={`${contentAuthorNickname} - home`}
-          >
-            <span>
-              <span>{contentAuthorNickname}</span>
-              <span>님 블로그</span>
-            </span>
-          </Link>
-        )}
+        <Link
+          href="/users/e69617ab-2700-463f-8d9a-3a09299d39db"
+          aria-label={`${contentAuthorNickname} - home`}
+        >
+          <span>
+            <span>{contentAuthorNickname}</span>
+            <span>님 블로그</span>
+          </span>
+        </Link>
       </div>
       <div className="flex items-center">
         <Link

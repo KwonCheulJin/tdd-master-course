@@ -1,18 +1,78 @@
 // src/mocks/handlers.js
 import { ContentView } from '@/domains/content/type';
-import { contentFixture } from '__tests__/fixture/content';
-import { userFixture } from '__tests__/fixture/user';
+import { contentFixtures } from '__tests__/fixture/content';
+import { userFixtures } from '__tests__/fixture/user';
+import { castNullableStrToNum } from '__tests__/libs/cast-nullable-str-to-num';
 import { http, HttpResponse } from 'msw';
 import { omit } from 'radashi';
 
 export const contentsHandler = [
-  http.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/contents`, () => {
-    return HttpResponse.json({
-      id: 'c7b3d8e0-5e0b-4b0f-8b3a-3b9f4b3d3b3d',
-      firstName: 'John',
-      lastName: 'Maverick',
-    });
-  }),
+  http.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents`,
+    ({ request }) => {
+      const url = new URL(request.url);
+
+      const pageTake = castNullableStrToNum(url.searchParams.get('pageTake'));
+      const pageNum = castNullableStrToNum(url.searchParams.get('pageNum'));
+      const sort = url.searchParams.get('sort');
+      const search = url.searchParams.get('search');
+
+      if (pageTake === null || pageNum === null)
+        return HttpResponse.json({
+          status: 400,
+        });
+      const startAt = (pageNum - 1) * pageTake;
+      const endAt = pageNum * pageTake;
+      let inter = contentFixtures;
+      if (search !== null) {
+        inter = inter.filter(c => c.title.toLowerCase().includes(search));
+      }
+      console.log('🚀 ~ inter:', inter);
+
+      if (sort !== null) {
+        inter = inter.toSorted((a, b) => {
+          if (sort === 'title-asc') {
+            return a.title > b.title ? 1 : -1;
+          }
+          return a.createdAt > b.createdAt ? -1 : 1;
+        });
+      }
+
+      const contents = inter.slice(startAt, endAt).map(c => {
+        const author = userFixtures.find(user => c.authorId === user.id);
+        if (!author) throw new Error('Not found Author');
+        const content: ContentView = {
+          ...omit(c, ['authorId']),
+          author,
+        };
+
+        return content;
+      });
+
+      return HttpResponse.json({
+        data: { contents },
+        status: 200,
+      });
+    }
+  ),
+  http.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents/count`,
+    ({ request }) => {
+      const url = new URL(request.url);
+
+      const search = url.searchParams.get('search');
+
+      const filtered = search
+        ? contentFixtures.filter(c => c.title.includes(search))
+        : contentFixtures;
+
+      const count = filtered.length;
+      return HttpResponse.json({
+        data: { count },
+        status: 200,
+      });
+    }
+  ),
   http.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents/:id`,
     ({ params }) => {
@@ -22,14 +82,14 @@ export const contentsHandler = [
           status: 400,
         });
       }
-      const found = contentFixture.find(c => c.id === id);
+      const found = contentFixtures.find(c => c.id === id);
       if (!found) {
         return HttpResponse.json({
           status: 404,
         });
       }
 
-      const author = userFixture.find(c => c.id === found.authorId);
+      const author = userFixtures.find(c => c.id === found.authorId);
       if (!author) throw new Error();
 
       const content: ContentView = {

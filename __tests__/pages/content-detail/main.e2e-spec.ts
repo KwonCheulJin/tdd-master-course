@@ -1,8 +1,8 @@
 import { localizeDate } from '@/libs/sub-string';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
-import { contentFixture } from '__tests__/fixture/content';
-import { userFixture } from '__tests__/fixture/user';
+import { contentFixtures } from '__tests__/fixture/content';
+import { userFixtures } from '__tests__/fixture/user';
 import { Helper } from '__tests__/pages/content-detail/helper';
 import { headerTest } from '__tests__/playwright/shared-test';
 
@@ -22,14 +22,14 @@ test.describe('guard', () => {
   });
 });
 test.describe('header', () => {
-  const content = contentFixture[0];
+  const content = contentFixtures[0];
   const url = getUrl(content.id);
   headerTest(url);
 
   test('방문하면 "{작성자}님 블로그"가 보인다.', async ({ page, context }) => {
     const helper = new Helper(page, context);
-    const content = contentFixture[0];
-    const user = userFixture[0];
+    const content = contentFixtures[0];
+    const user = userFixtures[0];
 
     await helper.gotoTargetPage(content.id, false);
     await expect(
@@ -41,8 +41,8 @@ test.describe('header', () => {
 test.describe('main', () => {
   test('컨텐츠가 제대로 렌더링 된다.', async ({ page, context }) => {
     const helper = new Helper(page, context);
-    const content = contentFixture[0];
-    const user = userFixture[0];
+    const content = contentFixtures[0];
+    const user = userFixtures[0];
 
     await helper.gotoTargetPage(content.id, false);
     await expect(helper.getMain.getByText(content.title)).toBeVisible();
@@ -57,8 +57,8 @@ test.describe('main', () => {
 test.describe('author-aside', () => {
   test('유저 정보가 제대로 렌더링 된다.', async ({ page, context }) => {
     const helper = new Helper(page, context);
-    const content = contentFixture[0];
-    const user = userFixture[0];
+    const content = contentFixtures[0];
+    const user = userFixtures[0];
 
     await helper.gotoTargetPage(content.id, false);
     await expect(
@@ -74,7 +74,7 @@ test.describe('comment-section', () => {
     context,
   }) => {
     const helper = new Helper(page, context);
-    const content = contentFixture[0];
+    const content = contentFixtures[0];
 
     await helper.gotoTargetPage(content.id, false);
 
@@ -87,8 +87,8 @@ test.describe('comment-section', () => {
     context,
   }) => {
     const helper = new Helper(page, context);
-    const content = contentFixture[0];
-    const user = userFixture[0];
+    const content = contentFixtures[0];
+    const user = userFixtures[0];
 
     await helper.signin(user.id);
     await helper.gotoTargetPage(content.id, false);

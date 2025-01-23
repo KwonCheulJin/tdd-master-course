@@ -1,4 +1,4 @@
-import DevNav from '@/app/components/__dev__/dev-nav';
+import DevNav from '@/components/__dev__/dev-nav';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 

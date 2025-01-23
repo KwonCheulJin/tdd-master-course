@@ -1,4 +1,4 @@
-import InputImage from '@/app/components/molecules/input-image';
+import InputImage from '@/components/molecules/input-image';
 import { localizeDate } from '@/libs/sub-string';
 import { layoutStyles } from '@/styles/layout-styles';
 import { MIDDLE_DOT } from '@/utils/string';
@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-export default function ContentCreateForm({ className }: Props) {
+export default function ContentEditForm({ className }: Props) {
   return (
     <form className={clsx(layoutStyles.mx, className)}>
       <div
@@ -38,7 +38,7 @@ export default function ContentCreateForm({ className }: Props) {
           )}
           disabled
         >
-          생성하기
+          수정하기
         </button>
       </div>
     </form>

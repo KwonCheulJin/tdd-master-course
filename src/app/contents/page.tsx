@@ -1,11 +1,14 @@
-import ContentsMain from '@/app/components/organisms/contents-main';
-import Footer from '@/app/components/organisms/footer';
-import Header from '@/app/components/organisms/header';
+import ContentsMain from '@/components/organisms/contents-main';
+import Footer from '@/components/organisms/footer';
+import Header from '@/components/organisms/header';
+import { getAuth } from '@/effects/authorization';
+import { cookies } from 'next/headers';
 
-export default function Contents() {
+export default async function Contents() {
+  const user = await getAuth(cookies);
   return (
     <>
-      <Header />
+      <Header user={user} />
       <ContentsMain />
       <Footer />
     </>
