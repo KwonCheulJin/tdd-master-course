@@ -3,13 +3,7 @@ import { User } from '@/domains/user/entity';
 import { faker } from '@faker-js/faker';
 import { draw } from 'radashi';
 
-const imgPath = [
-  '/file.svg',
-  '/globe.svg',
-  '/next.svg',
-  '/vercerl.svg',
-  '/window.svg',
-];
+const imgPath = ['/globe.svg', '/vercerl.svg', '/window.svg'];
 export const gen = {
   img: () => draw(imgPath) as string,
   content: {

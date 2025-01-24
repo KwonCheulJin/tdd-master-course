@@ -5,12 +5,13 @@ import { headerTest } from '__tests__/playwright/shared-test';
 
 const url = '/contents';
 test.describe('header', () => {
-  headerTest(url);
+  headerTest.noSignIn(url);
+  headerTest.singIn(url);
 });
 test.describe('items', () => {
   test('pagination', async ({ page, context }) => {
     const helper = new Helper(page, context);
-    await helper.gotoTargetPage(false);
+    await helper.gotoTargetPage();
 
     await test.step('컨텐츠 리스트에 접근 했을 때, 12개의 아이템이 보인다', async () => {
       await expect(helper.getContentItems).toHaveCount(12);
@@ -22,7 +23,7 @@ test.describe('items', () => {
   });
   test('sort', async ({ page, context }) => {
     const helper = new Helper(page, context);
-    await helper.gotoTargetPage(false);
+    await helper.gotoTargetPage();
 
     await test.step('컨텐츠 리스트에 접근 했을 때, 정렬 옵션을 최신순으로 선택하면 컨텐츠[0] 아이템이 첫번째 아이템으로 보인다.', async () => {
       await expect(helper.getSortOption).toHaveValue('created-at-desc');
@@ -45,7 +46,7 @@ test.describe('items', () => {
       const helper = new Helper(page, context);
       const content = contentFixtures[3];
       const search = content.title.slice(0, 10);
-      await helper.gotoTargetPage(false);
+      await helper.gotoTargetPage();
 
       await helper.getSearchInput.fill(search.toLowerCase());
       await helper.getSearchInput.press('Enter');
@@ -59,7 +60,7 @@ test.describe('pagination', () => {
   test('pages', async ({ page, context }) => {
     const helper = new Helper(page, context);
     const content = contentFixtures[0];
-    await helper.gotoTargetPage(false);
+    await helper.gotoTargetPage();
     await test.step('컨텐츠 리스트에 접근 했을 때, 페이지 3은 보이지 않고, 페이지 2까지만 보인다.', async () => {
       await expect(helper.getPageButton(3)).toBeHidden();
       await expect(helper.getPageButton(2)).toBeVisible();
@@ -75,7 +76,7 @@ test.describe('pagination', () => {
   test('pageLoc', async ({ page, context }) => {
     const helper = new Helper(page, context);
 
-    await helper.gotoTargetPage(false);
+    await helper.gotoTargetPage();
     await test.step('컨텐츠 리스트에 접근 했을 때, 페이지 1이 선택되고 페이지 2는 선택되지 않는다', async () => {
       await expect(helper.getPageButton(1)).toHaveAttribute(
         'data-selected',

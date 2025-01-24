@@ -1,6 +1,8 @@
 // src/mocks/handlers.js
+import { Content } from '@/domains/content/entity';
 import { ContentView } from '@/domains/content/type';
 import { contentFixtures } from '__tests__/fixture/content';
+import { contentCreated } from '__tests__/fixture/create-content';
 import { userFixtures } from '__tests__/fixture/user';
 import { castNullableStrToNum } from '__tests__/libs/cast-nullable-str-to-num';
 import { http, HttpResponse } from 'msw';
@@ -24,10 +26,10 @@ export const contentsHandler = [
       const startAt = (pageNum - 1) * pageTake;
       const endAt = pageNum * pageTake;
       let inter = contentFixtures;
+
       if (search !== null) {
         inter = inter.filter(c => c.title.toLowerCase().includes(search));
       }
-      console.log('🚀 ~ inter:', inter);
 
       if (sort !== null) {
         inter = inter.toSorted((a, b) => {
@@ -74,6 +76,23 @@ export const contentsHandler = [
     }
   ),
   http.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents/${contentCreated.id}`,
+    () => {
+      const author = userFixtures.find(c => c.id === contentCreated.authorId);
+      if (!author) throw new Error();
+
+      const content: ContentView = {
+        ...omit(contentCreated, ['authorId']),
+        author,
+      };
+
+      return HttpResponse.json({
+        data: { content },
+        status: 200,
+      });
+    }
+  ),
+  http.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents/:id`,
     ({ params }) => {
       const { id } = params;
@@ -100,6 +119,31 @@ export const contentsHandler = [
       return HttpResponse.json({
         data: { content },
         status: 200,
+      });
+    }
+  ),
+  http.post(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents`,
+    ({ request }) => {
+      const { headers } = request;
+
+      const auth = headers.get('authorization');
+      const user = userFixtures.find(c => c.nickname === auth);
+
+      if (user === undefined) {
+        return HttpResponse.json({
+          status: 401,
+        });
+      }
+
+      const content: Content = {
+        ...contentCreated,
+        createdAt: new Date(),
+      };
+
+      return HttpResponse.json({
+        data: { content },
+        status: 201,
       });
     }
   ),

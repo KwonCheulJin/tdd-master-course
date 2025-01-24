@@ -1,4 +1,5 @@
 import { BrowserContext, expect, type Page } from '@playwright/test';
+import path from 'path';
 
 export class BaseHelper {
   readonly page: Page;
@@ -21,6 +22,14 @@ export class BaseHelper {
     ]);
   }
 
+  uploadFile() {
+    const fileChooserPromise = this.page.waitForEvent('filechooser');
+    const setFile = async (fileName: string) => {
+      const fileChooser = await fileChooserPromise;
+      await fileChooser.setFiles(path.join('__tests__', 'fixture', fileName));
+    };
+    return setFile;
+  }
   async strictHaveUrl(relative: string) {
     const absolute = this.baseUrl + relative;
     await expect(this.page).toHaveURL(absolute);

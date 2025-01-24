@@ -30,7 +30,7 @@ export default function ContentEditForm({ className }: Props) {
       >
         body
       </div>
-      <InputImage />
+      <InputImage alt="thumbnail" ariaLabel="thumbnail" />
       <div className="flex justify-center mb-20">
         <button
           className={clsx(
