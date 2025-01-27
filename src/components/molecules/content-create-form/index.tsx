@@ -13,9 +13,10 @@ import { MouseEventHandler } from 'react';
 
 interface Props {
   className?: string;
+  userNickname: string;
 }
 
-export default function ContentCreateForm({ className }: Props) {
+export default function ContentCreateForm({ className, userNickname }: Props) {
   const router = useRouter();
   const { text: title, onInput: onInputTitle } = useContentEditable('');
   const { text: body, onInput: onInputBody } = useContentEditable('');
@@ -50,9 +51,9 @@ export default function ContentCreateForm({ className }: Props) {
         aria-label="title"
       ></div>
       <div className="mb-8">
-        <span>charles</span>
+        <span>{userNickname}</span>
         <span>{` ${MIDDLE_DOT} `}</span>
-        <span>{localizeDate(new Date('2024-12-24T00:00'))}</span>
+        <span>{localizeDate(new Date())}</span>
       </div>
       <div
         contentEditable
@@ -70,7 +71,7 @@ export default function ContentCreateForm({ className }: Props) {
       <div className="flex justify-center mb-20">
         <button
           className={clsx(
-            'px-4 py-2 rounded font-bold bg-green-300 text-black disabled:bg-neutral-800 disabled:text-white'
+            'px-4 py-2 rounded font-bold bg-green-300 text-black disabled:bg-neutral-800 disabled:text-white disabled:cursor-not-allowed'
           )}
           disabled={!formStatus}
           onClick={onClickSubmit}

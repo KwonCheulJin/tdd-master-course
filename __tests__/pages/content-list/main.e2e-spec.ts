@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { contentFixtures } from '__tests__/fixture/content';
+import { contentFixtures } from '__tests__/fixture/contents';
 import { Helper } from '__tests__/pages/content-list/helper';
 import { headerTest } from '__tests__/playwright/shared-test';
 

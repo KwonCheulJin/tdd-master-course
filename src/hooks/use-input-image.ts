@@ -1,9 +1,9 @@
 import { uploadImg } from '@/effects/image/image.effect';
 import { ChangeEventHandler, useState } from 'react';
 
-export default function useInputImage(init: string) {
-  const [src, setSrc] = useState(init);
-  const [url, setUrl] = useState<string | undefined>(undefined);
+export default function useInputImage(initSrc: string, initUrl?: string) {
+  const [src, setSrc] = useState(initSrc);
+  const [url, setUrl] = useState<string | undefined>(initUrl);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = async e => {
     if (e.target.files === null) return;

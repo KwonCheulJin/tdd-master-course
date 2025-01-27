@@ -63,6 +63,34 @@ export const contentApi = {
 
     return json;
   },
+  async findMyOne(
+    id: string,
+    authorization: string
+  ): Promise<
+    | {
+        data: {
+          content: ContentView;
+        };
+        status: 200;
+      }
+    | {
+        status: 404;
+      }
+  > {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me/contents/${id}`,
+      {
+        headers: {
+          authorization,
+        },
+      }
+    );
+    const text = await data.text();
+
+    const json = JSON.parse(text, jsonDateParser);
+
+    return json;
+  },
   async create({
     authorization,
     ...body
@@ -85,6 +113,42 @@ export const contentApi = {
     const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents`;
     const data = await fetch(url, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization,
+      },
+      body: JSON.stringify(body),
+    });
+    const text = await data.text();
+
+    const json = JSON.parse(text, jsonDateParser);
+
+    return json;
+  },
+  async edit({
+    authorization,
+    id,
+    ...body
+  }: Pick<Content, 'title' | 'body' | 'thumbnail'> & {
+    id: string;
+    authorization: string;
+  }): Promise<
+    | {
+        data: {
+          content: Content;
+        };
+        status: 200;
+      }
+    | {
+        status: 401;
+      }
+    | {
+        status: 404;
+      }
+  > {
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/contents/${id}`;
+    const data = await fetch(url, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         authorization,

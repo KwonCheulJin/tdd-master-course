@@ -2,6 +2,7 @@ import DevNav from '@/components/__dev__/dev-nav';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { ToastContainer } from 'react-toastify';
 import './globals.css';
 import './mock-service';
 
@@ -31,7 +32,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-
+        <ToastContainer />
         <DevNav />
       </body>
     </html>

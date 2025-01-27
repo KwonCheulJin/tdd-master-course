@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { userFixtures } from '__tests__/fixture/user';
+import { userFixtures } from '__tests__/fixture/users';
 import { gen } from '__tests__/generator';
 import { objectToString } from '__tests__/libs/object-to-string';
 import fs from 'fs';
@@ -23,7 +23,7 @@ const main = (len: number) => {
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const filePath = path.resolve(__dirname, '../fixture/content.ts');
+  const filePath = path.resolve(__dirname, '../fixture/contents.ts');
   const fileContent = `import { Content } from '@/domains/content/entity';
 
   export const contentFixtures: Array<Content> = ${str};

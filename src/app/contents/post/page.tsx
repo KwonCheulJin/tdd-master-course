@@ -7,11 +7,12 @@ import { redirect } from 'next/navigation';
 
 export default async function ContentPostPage() {
   const user = await getAuth(cookies);
+
   if (user === undefined) redirect('/users/sign-in');
   return (
     <>
       <Header user={user} />
-      <ContentCreateForm />
+      <ContentCreateForm userNickname={user.nickname} />
       <Footer />
     </>
   );

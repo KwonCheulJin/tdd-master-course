@@ -12,6 +12,11 @@ export class BaseHelper {
     this.baseUrl = process.env.NEXT_PUBLIC_WEB_BASE_URL;
   }
 
+  async resetVirtualFixtures() {
+    await this.page.getByRole('button', { name: 'reset' }).click();
+    await expect(this.page.getByText('reset fixture success')).toBeVisible();
+  }
+
   async signin(authorization: string) {
     await this.context.addCookies([
       {
@@ -31,7 +36,7 @@ export class BaseHelper {
     return setFile;
   }
   async strictHaveUrl(relative: string) {
-    const absolute = this.baseUrl + relative;
-    await expect(this.page).toHaveURL(absolute);
+    const reg = new RegExp(`^${this.baseUrl}${relative}$`);
+    await expect(this.page).toHaveURL(reg);
   }
 }

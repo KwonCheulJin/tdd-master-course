@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
-import { contentCreated } from '__tests__/fixture/create-content';
 import { imgFileName } from '__tests__/fixture/file-name';
-import { userFixtures } from '__tests__/fixture/user';
+import { userFixtures } from '__tests__/fixture/users';
+import { gen } from '__tests__/generator';
 import { uuidGlobalRegExp } from '__tests__/libs/reg.exp';
 import { Helper } from '__tests__/pages/content-post/helper';
 import { guardTest, headerTest } from '__tests__/playwright/shared-test';
@@ -108,11 +108,10 @@ test.describe('content-post page', () => {
       context,
     }) => {
       const helper = new Helper(page, context);
-      const created = contentCreated;
 
-      const title = created.title;
+      const title = gen.content.title();
+      const body = gen.content.body();
       const fileName = imgFileName;
-      const body = created.body;
 
       await helper.fillForm({
         title,
@@ -123,12 +122,13 @@ test.describe('content-post page', () => {
       await helper.getSubmit.click();
 
       const url = new RegExp(
-        `${helper.baseUrl}/contents/${uuidGlobalRegExp.source}`
+        `^${helper.baseUrl}/contents/${uuidGlobalRegExp.source}$`
       );
 
       await expect(page).toHaveURL(url);
-
       await expect(page.getByText(title)).toBeVisible();
+
+      await helper.resetVirtualFixtures();
     });
   });
 });

@@ -1,5 +1,8 @@
-import { contentFixtures } from '__tests__/fixture/content';
+'use client';
+import { resetVirtualFixtureAction } from '@/components/__dev__/server-side';
+import { contentFixtures } from '__tests__/fixture/contents';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 interface LinkItem {
   tag: string;
@@ -34,6 +37,10 @@ const links: Array<LinkItem> = [
 ];
 
 export default function DevNav() {
+  const onClick = async () => {
+    await resetVirtualFixtureAction();
+    toast('reset fixture success', { autoClose: 2000 });
+  };
   return (
     <ul className={'fixed right-10 bottom-10'}>
       {links.map(link => (
@@ -41,6 +48,7 @@ export default function DevNav() {
           <Link href={link.href}>{link.tag}</Link>
         </li>
       ))}
+      <button onClick={onClick}>reset</button>
     </ul>
   );
 }

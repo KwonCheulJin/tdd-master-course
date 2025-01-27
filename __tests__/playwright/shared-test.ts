@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { userFixtures } from '__tests__/fixture/user';
+import { userFixtures } from '__tests__/fixture/users';
 import { BaseHelper } from '__tests__/playwright/base-helper';
 
 export const headerTest = {

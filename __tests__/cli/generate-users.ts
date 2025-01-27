@@ -10,7 +10,7 @@ const main = (len: number) => {
   const str = objectToString(instance);
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const filePath = path.resolve(__dirname, '../fixture/content.ts');
+  const filePath = path.resolve(__dirname, '../fixture/users.ts');
   const fileContent = `import { User } from '@/domains/user/entity';
 
     export const userFixtures: Array<User> = ${str};
@@ -18,4 +18,4 @@ const main = (len: number) => {
   fs.writeFileSync(filePath, fileContent);
 };
 
-main(1);
+main(2);

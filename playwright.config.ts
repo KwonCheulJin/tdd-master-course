@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import '__tests__/libs/import-env';
+import '__tests__/exec/import-env';
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -20,7 +20,8 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
+  maxFailures: 10,
   testMatch: '**/*.e2e-spec.ts',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',

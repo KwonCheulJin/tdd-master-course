@@ -1,8 +1,8 @@
 import { localizeDate } from '@/libs/sub-string';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
-import { contentFixtures } from '__tests__/fixture/content';
-import { userFixtures } from '__tests__/fixture/user';
+import { contentFixtures } from '__tests__/fixture/contents';
+import { userFixtures } from '__tests__/fixture/users';
 import { Helper } from '__tests__/pages/content-detail/helper';
 import { headerTest } from '__tests__/playwright/shared-test';
 
