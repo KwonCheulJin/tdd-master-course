@@ -54,7 +54,7 @@ export default function ContentEditForm({
     router.push(url);
   };
   return (
-    <form className={clsx(layoutStyles.mx, className)} role="form">
+    <form className={clsx(layoutStyles.mx, 'mt-8', className)} role="form">
       <div
         contentEditable
         suppressContentEditableWarning

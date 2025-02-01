@@ -108,4 +108,16 @@ describe('contentApi', () => {
 
     reset();
   });
+  test('delete', async () => {
+    const user = userFixtures[1];
+    const content = contentFixtures[0];
+
+    const authorization = user.nickname;
+
+    const response = await contentApi.delete({
+      authorization,
+      id: content.id,
+    });
+    expect(response.status).toEqual(404);
+  });
 });

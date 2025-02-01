@@ -53,6 +53,46 @@ test.describe('main', () => {
     ).toBeVisible();
     await expect(helper.getMain.getByText(content.body)).toBeVisible();
   });
+  test.describe('작성자 버튼 클릭', () => {
+    test('로그인 되지 않은 유저라면 버튼이 보이지 않는다', async ({
+      page,
+      context,
+    }) => {
+      const content = contentFixtures[0];
+
+      const helper = new Helper(page, context);
+      await helper.gotoTargetPage(content.id);
+      await expect(helper.getEditBtn).toBeHidden();
+    });
+    test('로그인 된 사용자여도 작성자가 아니라면 버튼이 보이지 않는다', async ({
+      page,
+      context,
+    }) => {
+      const content = contentFixtures[0];
+      const user = userFixtures[1];
+
+      const helper = new Helper(page, context);
+      await helper.signin(user.nickname);
+      await helper.gotoTargetPage(content.id);
+      await expect(helper.getEditBtn).toBeHidden();
+    });
+    test('작성자가 삭제 버튼을 클릭하면, "/contents"페이지로 리다이렉트 되고 컨텐츠는 찾을 수 없다.', async ({
+      page,
+      context,
+    }) => {
+      const content = contentFixtures[0];
+      const user = userFixtures[0];
+
+      const helper = new Helper(page, context);
+      await helper.signin(user.nickname);
+      await helper.gotoTargetPage(content.id);
+      await helper.getDeleteBtn.click();
+      await helper.strictHaveUrl('/contents');
+
+      await helper.gotoTargetPage(content.id);
+      await helper.strictHaveUrl('/contents');
+    });
+  });
 });
 
 test.describe('author-aside', () => {

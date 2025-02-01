@@ -42,7 +42,7 @@ export default function ContentCreateForm({ className, userNickname }: Props) {
     router.push(url);
   };
   return (
-    <form className={clsx(layoutStyles.mx, className)}>
+    <form className={clsx(layoutStyles.mx, 'mt-8', className)}>
       <div
         contentEditable
         suppressContentEditableWarning

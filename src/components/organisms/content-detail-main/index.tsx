@@ -1,16 +1,21 @@
+import ContentDetailActionButtons from '@/components/molecules/content-detail-action-btns';
 import { ContentView } from '@/domains/content/type';
 import { localizeDate } from '@/libs/sub-string';
 import { layoutStyles } from '@/styles/layout-styles';
 import { MIDDLE_DOT } from '@/utils/string';
 import clsx from 'clsx';
-import Link from 'next/link';
 
 interface Props {
   className?: string;
   content: ContentView;
+  isAuthor: boolean;
 }
 
-export default function ContentDetailMain({ className, content }: Props) {
+export default function ContentDetailMain({
+  className,
+  content,
+  isAuthor,
+}: Props) {
   return (
     <main className={clsx('mt-8', layoutStyles.px, className)}>
       <header>
@@ -22,14 +27,7 @@ export default function ContentDetailMain({ className, content }: Props) {
           </span>
           <span>{localizeDate(content.createdAt)}</span>
         </div>
-        {true && (
-          <div className="flex justify-end">
-            <Link href={`/content/${'id'}/edit`} className="mr-4">
-              수정
-            </Link>
-            <button>삭제</button>
-          </div>
-        )}
+        {isAuthor && <ContentDetailActionButtons contentId={content.id} />}
       </header>
       <div>{content.body}</div>
     </main>

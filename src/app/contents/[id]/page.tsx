@@ -18,14 +18,19 @@ export default async function ContentsDetail({
   const response = await contentApi.findOne(id);
   if (response.status !== 200) redirect('/contents');
   const data = response.data;
-
+  const isAuthor =
+    user === undefined
+      ? false
+      : user.nickname === data.content.author.nickname
+      ? true
+      : false;
   return (
     <>
       <ContentDetailHeader
         contentAuthorNickname={data.content.author.nickname}
         user={user}
       />
-      <ContentDetailMain content={data.content} />
+      <ContentDetailMain content={data.content} isAuthor={isAuthor} />
       <ContentDetailAuthorAside author={data.content.author} />
       <ContentDetailCommentSection isAuthorized={!!user} />
       <Footer />
